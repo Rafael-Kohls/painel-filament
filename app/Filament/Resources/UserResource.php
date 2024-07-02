@@ -26,7 +26,7 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('email')
-            ]);
+            ]); 
     }
 
     public static function table(Table $table): Table
