@@ -25,21 +25,35 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+
+                TextInput::make('name')
+                ->required(),
+                
                 TextInput::make('email')
-            ]); 
+                ->unique()
+                ->required(),
+                
+                TextInput::make('password')
+                ->password()
+                ->required()
+                ->hiddenOn('edit'),
+            ]);  
+
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('email')
+                TextColumn::make('email'),
+                TextColumn::make('name')
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
