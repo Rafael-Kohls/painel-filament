@@ -26,13 +26,15 @@ class UserResource extends Resource
                     ->required(),
                 
                 TextInput::make('email')
-                    ->unique()
+                    ->unique(ignoreRecord: true)
                     ->required(),
+
+                    TextInput::make('group'),
                 
                 TextInput::make('password')
                     ->password()
-                    ->required()
-                    ->hiddenOn('edit'),
+                    ->revealable()
+                    ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord),
             ]);
     }
 

@@ -16,4 +16,11 @@ class EditUser extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if(empty($data['password'])) unset($data['password']);
+
+        return parent::mutateFormDataBeforeSave($data);
+    }
 }
