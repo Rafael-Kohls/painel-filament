@@ -9,13 +9,26 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+
+
+    public function index()
+    {
+        $user = User::all();
+        if (!$user) {
+            return res_json(data:$user,status:404, message:'User not found');
+        } else {
+            // return ApiResponse::format(null, 'User found', null);
+            return res_json(data:$user,message:'User Found',status:200);
+        }
+    }
     public function show($id)
     {
         $user = User::find($id);
         if (!$user) {
-            return ApiResponse::format('404', 'User not found', null)->setStatusCode(404);
+            return res_json(data:$user,status:404, message:'User not found');
         } else {
-            return ApiResponse::format('200', 'User found', $user);
+            // return ApiResponse::format(null, 'User found', null);
+            return res_json(data:$user,message:'User Found',status:200);
         }
     }
 
@@ -23,6 +36,8 @@ class ApiController extends Controller
     {
         $data = $request->validated();
         $user = User::create($data);
-        return ApiResponse::format('200', 'Success', $user);
+        // return ApiResponse::format('201', 'Success', $user);
+        return res_json(data:$data,message:"Success",status:201);
     }
+
 }
