@@ -12,46 +12,50 @@ use Tests\TestCase;
 class UserResourceTest extends TestCase
 {
 
-    // public function test_pagina_lista_usuarios(): void
-    // {
-    //     $this->get(UserResource::getUrl())->assertSuccessful();
-    // }
+    public function test_pagina_lista_usuarios(): void
+    {
+        $this->get(UserResource::getUrl())->assertSuccessful();
+    }
 
-    // public function test_lista_usuarios(): void
-    // {
-    //     $users = User::factory()->count(3)->create();
-    //     Livewire::test(ListUsers::class)
-    //         ->assertSee($users->pluck('email')->toArray());
-    // }
+    public function test_lista_usuarios(): void
+    {
+     
 
-    // public function test_pagina_criar_usuario(): void
-    // {
-    //     $this->get(UserResource::getUrl('create'))->assertSuccessful();
-    // }
+        User::factory()->count(3)->create();
+        $users = User::limit(3)->get();
 
-    // public function test_cria_novo_usuario()
-    // {
-    //     // Arrange
-    //     $newUser = User::factory()->make();
+        Livewire::test(ListUsers::class)
+            ->assertSee($users->pluck('email')->toArray());
+    }
 
-    //     // Act
-    //     Livewire::test(CreateUser::class)
-    //         // Setting the orm value
-    //         ->set('data.name', $newUser->name)
-    //         ->set('data.email', $newUser->email)
-    //         ->set('data.password', $newUser->password)
-    //         ->set('data.group', 'ADMIN')
-    //         // Trying to hook the data store mechanism
-    //         ->call('create')
-    //         ->assertHasNoErrors();
+    public function test_pagina_criar_usuario(): void
+    {
+        $this->get(UserResource::getUrl('create'))->assertSuccessful();
+    }
 
-    //     // Assert
-    //     $this->assertDatabaseHas('users', [
-    //         'name' => $newUser->name,
-    //         'email' => $newUser->email,
-    //         'password' => $newUser->password,
-    //         'group' => 'ADMIN',
-    //     ]);
-    // }
+    public function test_cria_novo_usuario()
+    {
+        // Arrange
+        $newUser = User::factory()->make();
+
+        // Act
+        Livewire::test(CreateUser::class)
+            // Setting the orm value
+            ->set('data.name', $newUser->name)
+            ->set('data.email', $newUser->email)
+            ->set('data.password', $newUser->password)
+            ->set('data.group', 'ADMIN')
+            // Trying to hook the data store mechanism
+            ->call('create')
+            ->assertHasNoErrors();
+
+        // Assert
+        $this->assertDatabaseHas('users', [
+            'name' => $newUser->name,
+            'email' => $newUser->email,
+            'password' => $newUser->password,
+            'group' => 'ADMIN',
+        ]);
+    }
 
 }
