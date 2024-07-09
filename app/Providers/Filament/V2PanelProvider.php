@@ -27,6 +27,7 @@ class V2PanelProvider extends PanelProvider
             ->id('v2')
             ->path('v2')
             ->login()
+            ->registration()
             ->colors([
                 'primary' => Color::Green,
             ])
