@@ -40,10 +40,11 @@ class UserResourceTest extends TestCase
 
         // Act
         Livewire::test(CreateUser::class)
-            // Setting the orm value
+
             ->set('data.name', $newUser->name)
             ->set('data.email', $newUser->email)
             ->set('data.password', $newUser->password)
+            ->set('data.password_confirmation', $newUser->password)
             ->set('data.group', 'ADMIN')
             // Trying to hook the data store mechanism
             ->call('create')
@@ -57,5 +58,5 @@ class UserResourceTest extends TestCase
             'group' => 'ADMIN',
         ]);
     }
-
+ 
 }
